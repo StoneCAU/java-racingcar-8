@@ -1,0 +1,31 @@
+package racingcar.model;
+
+public class Car {
+    private static final int MAX_NAME_LENGTH = 5;
+
+    private final String name;
+    private int position;
+
+    public Car(String name) {
+        validateCarName(name);
+        this.name = name;
+        this.position = 0;
+    }
+
+    private void validateCarName(String name) {
+        validateNotEmpty(name);
+        validateLength(name);
+    }
+
+    private void validateNotEmpty(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("자동차 이름은 빈 문자열일 수 없습니다");
+        }
+    }
+
+    private void validateLength(String name) {
+        if (name.length() > MAX_NAME_LENGTH) {
+            throw new IllegalArgumentException(String.format("자동차 이름은 %d자를 초과할 수 없습니다.", MAX_NAME_LENGTH));
+        }
+    }
+}
