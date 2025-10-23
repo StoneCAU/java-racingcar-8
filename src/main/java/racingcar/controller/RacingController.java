@@ -4,7 +4,7 @@ import dto.CarStatus;
 import racingcar.domain.Cars;
 import racingcar.domain.MoveStrategy;
 import racingcar.domain.TryCount;
-import racingcar.util.CarNamesParser;
+import racingcar.parser.CarNamesParser;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
