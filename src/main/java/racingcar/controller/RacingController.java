@@ -42,6 +42,7 @@ public class RacingController {
     private void playGame(Cars cars, TryCount tryCount) {
         outputView.printResultMessage();
         runRace(cars, tryCount);
+        printWinners(cars);
     }
 
     private void runRace(Cars cars, TryCount tryCount) {
@@ -51,5 +52,10 @@ public class RacingController {
             outputView.printRoundResult(statuses);
             tryCount.decrease();
         }
+    }
+
+    private void printWinners(Cars cars) {
+        List<String> winners = cars.findWinners();
+        outputView.printWinners(winners);
     }
 }
