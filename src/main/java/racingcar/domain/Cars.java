@@ -14,6 +14,10 @@ public class Cars {
         this.cars = createCars(carNames);
     }
 
+    public void race(MoveStrategy strategy) {
+        cars.forEach(car -> car.move(strategy.generatePower()));
+    }
+
     public List<CarStatus> snapshot() {
         return cars.stream()
                 .map(Car::toStatus)
@@ -47,9 +51,5 @@ public class Cars {
         return carNames.stream()
                 .map(Car::new)
                 .toList();
-    }
-
-    public void race(MoveStrategy strategy) {
-        cars.forEach(car -> car.move(strategy.generatePower()));
     }
 }
