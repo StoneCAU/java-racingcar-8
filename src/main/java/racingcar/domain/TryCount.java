@@ -1,25 +1,21 @@
 package racingcar.domain;
 
 public class TryCount {
-    private static final int MIN_VALUE = 1;
+    private static final int MIN_TRY_COUNT = 1;
 
-    private final int value;
+    private int count;
 
     public TryCount(String input) {
-        validateNotEmpty(input);
-        int number = parseToInt(input);
-        validateRange(number);
-        this.value = number;
+        this.count = parseToInt(input.trim());
+        validateRange(count);
     }
 
-    public int getValue() {
-        return value;
+    public boolean hasCount() {
+        return count > 0;
     }
 
-    private void validateNotEmpty(String input) {
-        if (input == null || input.trim().isEmpty()) {
-            throw new IllegalArgumentException("시도 횟수를 입력해주세요.");
-        }
+    public void decrease() {
+        count--;
     }
 
     private int parseToInt(String input) {
@@ -31,8 +27,8 @@ public class TryCount {
     }
 
     private void validateRange(int number) {
-        if (number < MIN_VALUE) {
-            throw new IllegalArgumentException(String.format("시도 횟수는 %d 이상이어야 합니다.", MIN_VALUE));
+        if (number < MIN_TRY_COUNT) {
+            throw new IllegalArgumentException("시도 횟수는 " + MIN_TRY_COUNT + " 이상이어야 합니다.");
         }
     }
 }
