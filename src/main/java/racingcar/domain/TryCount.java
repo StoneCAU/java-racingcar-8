@@ -1,4 +1,4 @@
-package racingcar.model;
+package racingcar.domain;
 
 public class TryCount {
     private static final int MIN_VALUE = 1;
@@ -10,6 +10,10 @@ public class TryCount {
         int number = parseToInt(input);
         validateRange(number);
         this.value = number;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     private void validateNotEmpty(String input) {
