@@ -1,5 +1,6 @@
 package racingcar.controller;
 
+import dto.CarStatus;
 import racingcar.domain.Cars;
 import racingcar.domain.MoveStrategy;
 import racingcar.domain.TryCount;
@@ -23,6 +24,8 @@ public class RacingController {
     public void run() {
         Cars cars = createCars();
         TryCount tryCount = createTryCount();
+
+        playGame(cars, tryCount);
     }
 
     private Cars createCars() {
@@ -34,5 +37,18 @@ public class RacingController {
     private TryCount createTryCount() {
         String tryCountInput = inputView.readTryCount();
         return new TryCount(tryCountInput);
+    }
+
+    private void playGame(Cars cars, TryCount tryCount) {
+        outputView.printResultMessage();
+        runRace(cars, tryCount.getValue());
+    }
+
+    private void runRace(Cars cars, int count) {
+        for (int i = 0; i < count; ++i) {
+            cars.race(moveStrategy);
+            List<CarStatus> statuses = cars.snapshot();
+            outputView.printRoundResult(statuses);
+        }
     }
 }
