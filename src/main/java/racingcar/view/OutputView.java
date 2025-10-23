@@ -1,18 +1,17 @@
 package racingcar.view;
 
 import dto.CarStatus;
-
 import java.util.List;
 
 public class OutputView {
     private static final String NEW_LINE = System.lineSeparator();
-    private static final String RESULT_TITLE = "실행 결과";
-    private static final String RESULT_FORMAT = "%s : %s";
-    private static final String POSITION_SYMBOL = "-";
+    private static final String RESULT_HEADER_MESSAGE = "실행 결과";
+    private static final String CAR_STATUS_FORMAT = "%s : %s";
+    private static final String POSITION_MARK = "-";
 
     public void printResultMessage() {
         printNewLine();
-        System.out.println(RESULT_TITLE);
+        System.out.println(RESULT_HEADER_MESSAGE);
     }
 
     public void printNewLine() {
@@ -21,9 +20,9 @@ public class OutputView {
 
     public void printRoundResult(List<CarStatus> statuses) {
         statuses.forEach(status ->
-                System.out.printf(RESULT_FORMAT + NEW_LINE,
+                System.out.printf(CAR_STATUS_FORMAT + NEW_LINE,
                         status.name(),
-                        POSITION_SYMBOL.repeat(status.position()))
+                        POSITION_MARK.repeat(status.position()))
         );
         printNewLine();
     }
