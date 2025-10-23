@@ -15,8 +15,26 @@ public class Car {
         this.position = 0;
     }
 
+    public void move(int power) {
+        if (canMove(power)) {
+            position++;
+        }
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public CarStatus toStatus() {
         return new CarStatus(name, position);
+    }
+
+    private boolean canMove(int power) {
+        return power >= FORWARD_THRESHOLD;
     }
 
     private void validateCarName(String name) {
@@ -32,17 +50,9 @@ public class Car {
 
     private void validateLength(String name) {
         if (name.length() > MAX_NAME_LENGTH) {
-            throw new IllegalArgumentException(String.format("자동차 이름은 %d자를 초과할 수 없습니다.", MAX_NAME_LENGTH));
+            throw new IllegalArgumentException(
+                    String.format("자동차 이름은 %d자를 초과할 수 없습니다.", MAX_NAME_LENGTH)
+            );
         }
-    }
-
-    public void move(int power) {
-        if (canMove(power)) {
-            position++;
-        }
-    }
-
-    private boolean canMove(int power) {
-        return power >= FORWARD_THRESHOLD;
     }
 }

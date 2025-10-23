@@ -24,6 +24,22 @@ public class Cars {
                 .toList();
     }
 
+    public List<String> findWinners() {
+        int maxPosition = findMaxPosition();
+
+        return cars.stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .map(Car::getName)
+                .toList();
+    }
+
+    private int findMaxPosition() {
+        return cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(0);
+    }
+
     private void validateNames(List<String> carNames) {
         validateNotEmpty(carNames);
         validateDuplicate(carNames);
