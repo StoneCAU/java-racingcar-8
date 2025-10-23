@@ -1,7 +1,8 @@
-package racingcar.model;
+package racingcar.domain;
 
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
+    private static final int FORWARD_THRESHOLD = 4;
 
     private final String name;
     private int position;
@@ -27,5 +28,15 @@ public class Car {
         if (name.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException(String.format("자동차 이름은 %d자를 초과할 수 없습니다.", MAX_NAME_LENGTH));
         }
+    }
+
+    public void move(int power) {
+        if (canMove(power)) {
+            position++;
+        }
+    }
+
+    private boolean canMove(int power) {
+        return power >= FORWARD_THRESHOLD;
     }
 }
