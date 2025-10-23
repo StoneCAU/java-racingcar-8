@@ -1,5 +1,8 @@
 package racingcar.controller;
 
+import racingcar.domain.Cars;
+import racingcar.domain.MoveStrategy;
+import racingcar.domain.TryCount;
 import racingcar.util.CarNamesParser;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
@@ -9,14 +12,27 @@ import java.util.List;
 public class RacingController {
     private final InputView inputView;
     private final OutputView outputView;
+    private final MoveStrategy moveStrategy;
 
-    public RacingController(InputView inputView, OutputView outputView) {
+    public RacingController(InputView inputView, OutputView outputView, MoveStrategy moveStrategy) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.moveStrategy = moveStrategy;
     }
 
     public void run() {
+        Cars cars = createCars();
+        TryCount tryCount = createTryCount();
+    }
+
+    private Cars createCars() {
         String carNamesInput = inputView.readCarNames();
         List<String> carNames = CarNamesParser.parse(carNamesInput);
+        return new Cars(carNames);
+    }
+
+    private TryCount createTryCount() {
+        String tryCountInput = inputView.readTryCount();
+        return new TryCount(tryCountInput);
     }
 }
