@@ -1,4 +1,4 @@
-package racingcar.model;
+package racingcar.domain;
 
 import java.util.List;
 
@@ -8,9 +8,13 @@ public class Cars {
     private final List<Car> cars;
 
     public Cars(List<String> carNames) {
+        validateNames(carNames);
+        this.cars = createCars(carNames);
+    }
+
+    private void validateNames(List<String> carNames) {
         validateNotEmpty(carNames);
         validateDuplicate(carNames);
-        this.cars = createCars(carNames);
     }
 
     private void validateNotEmpty(List<String> carNames) {
@@ -35,5 +39,9 @@ public class Cars {
         return carNames.stream()
                 .map(Car::new)
                 .toList();
+    }
+
+    public void race(MoveStrategy strategy) {
+        cars.forEach(car -> car.move(strategy.generatePower()));
     }
 }
