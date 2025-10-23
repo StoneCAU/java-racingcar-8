@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import dto.CarStatus;
+
 import java.util.List;
 
 public class Cars {
@@ -10,6 +12,12 @@ public class Cars {
     public Cars(List<String> carNames) {
         validateNames(carNames);
         this.cars = createCars(carNames);
+    }
+
+    public List<CarStatus> snapshot() {
+        return cars.stream()
+                .map(Car::toStatus)
+                .toList();
     }
 
     private void validateNames(List<String> carNames) {

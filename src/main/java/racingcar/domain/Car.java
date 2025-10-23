@@ -1,5 +1,7 @@
 package racingcar.domain;
 
+import dto.CarStatus;
+
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
     private static final int FORWARD_THRESHOLD = 4;
@@ -11,6 +13,10 @@ public class Car {
         validateCarName(name);
         this.name = name;
         this.position = 0;
+    }
+
+    public CarStatus toStatus() {
+        return new CarStatus(name, position);
     }
 
     private void validateCarName(String name) {
