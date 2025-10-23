@@ -1,5 +1,5 @@
 package racingcar.domain;
 
 public interface MoveStrategy {
-    int generate();
+    int generatePower();
 }

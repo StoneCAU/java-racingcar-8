@@ -7,7 +7,7 @@ public class RandomMoveStrategy implements MoveStrategy {
     private final static int MAX= 9;
 
     @Override
-    public int generate() {
+    public int generatePower() {
         return Randoms.pickNumberInRange(MIN, MAX);
     }
 }
