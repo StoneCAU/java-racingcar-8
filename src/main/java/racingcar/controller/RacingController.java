@@ -41,14 +41,15 @@ public class RacingController {
 
     private void playGame(Cars cars, TryCount tryCount) {
         outputView.printResultMessage();
-        runRace(cars, tryCount.getValue());
+        runRace(cars, tryCount);
     }
 
-    private void runRace(Cars cars, int count) {
-        for (int i = 0; i < count; ++i) {
+    private void runRace(Cars cars, TryCount tryCount) {
+        while (tryCount.hasCount()) {
             cars.race(moveStrategy);
             List<CarStatus> statuses = cars.snapshot();
             outputView.printRoundResult(statuses);
+            tryCount.decrease();
         }
     }
 }
