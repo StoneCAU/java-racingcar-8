@@ -22,19 +22,19 @@ public class RacingController {
     }
 
     public void run() {
-        Cars cars = createCars();
-        TryCount tryCount = createTryCount();
+        Cars cars = inputCars();
+        TryCount tryCount = inputTryCount();
 
         playGame(cars, tryCount);
     }
 
-    private Cars createCars() {
+    private Cars inputCars() {
         String carNamesInput = inputView.readCarNames();
         List<String> carNames = CarNamesParser.parse(carNamesInput);
         return new Cars(carNames);
     }
 
-    private TryCount createTryCount() {
+    private TryCount inputTryCount() {
         String tryCountInput = inputView.readTryCount();
         return new TryCount(tryCountInput);
     }
