@@ -6,7 +6,8 @@ public class TryCount {
     private int count;
 
     public TryCount(String input) {
-        this.count = parseToInt(input.trim());
+        validateNotEmpty(input);
+        this.count = parseToInt(input);
         validateRange(count);
     }
 
@@ -18,9 +19,15 @@ public class TryCount {
         count--;
     }
 
+    private void validateNotEmpty(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            throw new IllegalArgumentException("시도 횟수를 입력해야 합니다.");
+        }
+    }
+
     private int parseToInt(String input) {
         try {
-            return Integer.parseInt(input);
+            return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("시도 횟수는 숫자여야 합니다.");
         }

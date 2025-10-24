@@ -19,15 +19,15 @@ class TryCountTest {
     void invalidEmptyTryCount() {
         assertThatThrownBy(() -> new TryCount(""))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("시도 횟수는 숫자여야 합니다.");
+                .hasMessage("시도 횟수를 입력해야 합니다.");
     }
 
     @Test
     @DisplayName("시도 횟수가 null이면 예외가 발생한다")
     void invalidNullTryCount() {
         assertThatThrownBy(() -> new TryCount(null))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessage("시도 횟수는 숫자여야 합니다.");
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("시도 횟수를 입력해야 합니다.");
     }
 
     @Test
@@ -35,7 +35,7 @@ class TryCountTest {
     void invalidBlankTryCount() {
         assertThatThrownBy(() -> new TryCount("   "))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("시도 횟수는 숫자여야 합니다.");
+                .hasMessage("시도 횟수를 입력해야 합니다.");
     }
 
     @Test
