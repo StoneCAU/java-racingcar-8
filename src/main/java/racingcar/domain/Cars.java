@@ -47,7 +47,7 @@ public class Cars {
 
     private void validateNotEmpty(List<String> carNames) {
         if (carNames == null || carNames.size() < MIN_CAR_COUNT) {
-            throw new IllegalArgumentException(String.format("자동차는 최소 %d대 이상이어야 합니다.", MIN_CAR_COUNT));
+            throw new IllegalArgumentException("자동차는 최소 " + MIN_CAR_COUNT + "대 이상이어야 합니다.");
         }
     }
 

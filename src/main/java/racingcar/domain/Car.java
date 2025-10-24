@@ -50,9 +50,7 @@ public class Car {
 
     private void validateLength(String name) {
         if (name.length() > MAX_NAME_LENGTH) {
-            throw new IllegalArgumentException(
-                    String.format("자동차 이름은 %d자를 초과할 수 없습니다.", MAX_NAME_LENGTH)
-            );
+            throw new IllegalArgumentException("자동차 이름은 " + MAX_NAME_LENGTH + "자를 초과할 수 없습니다.");
         }
     }
 }
