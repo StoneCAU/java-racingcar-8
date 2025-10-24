@@ -14,7 +14,7 @@ public class Cars {
         this.cars = createCars(carNames);
     }
 
-    public void race(MoveStrategy strategy) {
+    public void proceedRound(MoveStrategy strategy) {
         cars.forEach(car -> car.move(strategy.generatePower()));
     }
 

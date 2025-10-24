@@ -47,7 +47,7 @@ public class RacingController {
 
     private void runRace(Cars cars, TryCount tryCount) {
         while (tryCount.hasCount()) {
-            cars.race(moveStrategy);
+            cars.proceedRound(moveStrategy);
             List<CarStatus> statuses = cars.snapshot();
             outputView.printRoundResult(statuses);
             tryCount.decrease();
