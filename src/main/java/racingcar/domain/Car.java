@@ -44,7 +44,7 @@ public class Car {
 
     private void validateNotEmpty(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("자동차 이름은 빈 문자열일 수 없습니다");
+            throw new IllegalArgumentException("자동차 이름은 비어 있을 수 없습니다.");
         }
     }
 
