@@ -9,6 +9,7 @@ public class OutputView {
     private static final String CAR_STATUS_FORMAT = "%s : %s";
     private static final String POSITION_MARK = "-";
     private static final String WINNER_ANNOUNCEMENT_FORMAT = "최종 우승자 : %s";
+    private static final String WINNER_DELIMITER = ", ";
 
     public void printResultMessage() {
         printNewLine();
@@ -29,7 +30,7 @@ public class OutputView {
     }
 
     public void printWinners(List<String> winners) {
-        String joinedNames = String.join(", ", winners);
+        String joinedNames = String.join(WINNER_DELIMITER, winners);
         System.out.printf(WINNER_ANNOUNCEMENT_FORMAT + NEW_LINE, joinedNames);
     }
 }
