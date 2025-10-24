@@ -16,10 +16,6 @@ public class OutputView {
         System.out.println(RESULT_HEADER_MESSAGE);
     }
 
-    public void printNewLine() {
-        System.out.print(NEW_LINE);
-    }
-
     public void printRoundResult(List<CarStatus> statuses) {
         statuses.forEach(status ->
                 System.out.printf(CAR_STATUS_FORMAT + NEW_LINE,
@@ -32,5 +28,9 @@ public class OutputView {
     public void printWinners(List<String> winners) {
         String joinedNames = String.join(WINNER_DELIMITER, winners);
         System.out.printf(WINNER_ANNOUNCEMENT_FORMAT + NEW_LINE, joinedNames);
+    }
+
+    private void printNewLine() {
+        System.out.print(NEW_LINE);
     }
 }
