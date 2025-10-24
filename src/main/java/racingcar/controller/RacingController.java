@@ -1,6 +1,6 @@
 package racingcar.controller;
 
-import dto.CarStatus;
+import racingcar.dto.CarStatus;
 import racingcar.domain.Cars;
 import racingcar.domain.MoveStrategy;
 import racingcar.domain.TryCount;

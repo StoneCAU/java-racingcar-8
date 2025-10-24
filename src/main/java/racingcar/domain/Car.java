@@ -1,6 +1,6 @@
 package racingcar.domain;
 
-import dto.CarStatus;
+import racingcar.dto.CarStatus;
 
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
