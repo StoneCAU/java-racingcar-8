@@ -18,19 +18,27 @@ pobi,woni,jun
 5
 
 실행 결과
+pobi : -
+woni :
+jun : -
+
 pobi : --
-woni : ----
+woni : -
+jun : --
+
+pobi : ---
+woni : --
 jun : ---
 
 pobi : ----
-woni : -----
+woni : ---
 jun : ----
 
-pobi : ------
-woni : --------
-jun : -------
+pobi : -----
+woni : ----
+jun : -----
 
-최종 우승자 : pobi, woni
+최종 우승자 : pobi, jun
 ```
 
 ---
