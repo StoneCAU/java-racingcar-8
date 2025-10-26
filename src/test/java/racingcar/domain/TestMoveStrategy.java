@@ -10,6 +10,6 @@ public class TestMoveStrategy implements MoveStrategy {
 
     @Override
     public int generatePower() {
-        return powers[index++ % powers.length];
+        return powers[index++];
     }
 }
