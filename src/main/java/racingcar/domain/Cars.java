@@ -5,17 +5,24 @@ import racingcar.dto.CarStatus;
 import java.util.List;
 
 public class Cars {
+
     private static final int MIN_CAR_COUNT = 1;
 
     private final List<Car> cars;
+    private final MoveStrategy moveStrategy;
 
     public Cars(List<String> carNames) {
-        validateNames(carNames);
-        this.cars = createCars(carNames);
+        this(carNames, new RandomMoveStrategy());
     }
 
-    public void proceedRound(MoveStrategy strategy) {
-        cars.forEach(car -> car.move(strategy.generatePower()));
+    public Cars(List<String> carNames, MoveStrategy moveStrategy) {
+        validateNames(carNames);
+        this.cars = createCars(carNames);
+        this.moveStrategy = moveStrategy;
+    }
+
+    public void proceedRound() {
+        cars.forEach(car -> car.move(moveStrategy.generatePower()));
     }
 
     public List<CarStatus> snapshot() {
