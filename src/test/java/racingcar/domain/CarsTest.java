@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class CarsTest {
     @Test
@@ -16,13 +17,14 @@ public class CarsTest {
         Cars cars = new Cars(List.of("pobi", "crong", "jun"));
         List<CarStatus> statuses = cars.snapshot();
 
-        assertThat(statuses)
-                .hasSize(3)
-                .extracting("name")
-                .containsExactly("pobi", "crong", "jun");
-
-        assertThat(statuses)
-                .allMatch(status -> status.position() == 0);
+        assertAll(
+                () -> assertThat(statuses).hasSize(3),
+                () -> assertThat(statuses)
+                        .map(CarStatus::name)
+                        .containsExactly("pobi", "crong", "jun"),
+                () -> assertThat(statuses)
+                        .allMatch(status -> status.position() == 0)
+        );
     }
 
     @Test
@@ -59,7 +61,7 @@ public class CarsTest {
 
         List<CarStatus> statuses = cars.snapshot();
         assertThat(statuses)
-                .extracting(CarStatus::position)
+                .map(CarStatus::position)
                 .containsExactly(0, 0, 0);
     }
 
@@ -73,7 +75,7 @@ public class CarsTest {
 
         List<CarStatus> statuses = cars.snapshot();
         assertThat(statuses)
-                .extracting(CarStatus::position)
+                .map(CarStatus::position)
                 .containsExactly(1, 0, 1);
     }
 
@@ -93,7 +95,7 @@ public class CarsTest {
 
         List<CarStatus> statuses = cars.snapshot();
         assertThat(statuses)
-                .extracting(CarStatus::position)
+                .map(CarStatus::position)
                 .containsExactly(3, 3);
     }
 
@@ -110,19 +112,19 @@ public class CarsTest {
         // 1라운드
         cars.proceedRound();
         assertThat(cars.snapshot())
-                .extracting(CarStatus::position)
+                .map(CarStatus::position)
                 .containsExactly(1, 0);
 
         // 2라운드
         cars.proceedRound();
         assertThat(cars.snapshot())
-                .extracting(CarStatus::position)
+                .map(CarStatus::position)
                 .containsExactly(1, 1);
 
         // 3라운드
         cars.proceedRound();
         assertThat(cars.snapshot())
-                .extracting(CarStatus::position)
+                .map(CarStatus::position)
                 .containsExactly(2, 2);
     }
 
@@ -159,7 +161,9 @@ public class CarsTest {
 
         List<CarStatus> second = cars.snapshot();
 
-        assertThat(first.getFirst().position()).isEqualTo(0);
-        assertThat(second.getFirst().position()).isEqualTo(1);
+        assertAll(
+                () -> assertThat(first.getFirst().position()).isEqualTo(0),
+                () -> assertThat(second.getFirst().position()).isEqualTo(1)
+        );
     }
 }
