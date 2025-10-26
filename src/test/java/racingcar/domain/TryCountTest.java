@@ -2,6 +2,8 @@ package racingcar.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -14,10 +16,11 @@ class TryCountTest {
         assertThat(tryCount.hasCount()).isTrue();
     }
 
-    @Test
-    @DisplayName("시도 횟수가 빈 문자열이면 예외가 발생한다")
-    void invalidEmptyTryCount() {
-        assertThatThrownBy(() -> new TryCount(""))
+    @ParameterizedTest
+    @ValueSource(strings = {"", "   ", " \t "})
+    @DisplayName("시도 횟수가 빈 문자열이나 공백이면 예외가 발생한다")
+    void invalidEmptyOrBlankTryCount(String input) {
+        assertThatThrownBy(() -> new TryCount(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("시도 횟수를 입력해야 합니다.");
     }
@@ -30,44 +33,30 @@ class TryCountTest {
                 .hasMessage("시도 횟수를 입력해야 합니다.");
     }
 
-    @Test
-    @DisplayName("시도 횟수가 공백이면 예외가 발생한다")
-    void invalidBlankTryCount() {
-        assertThatThrownBy(() -> new TryCount("   "))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("시도 횟수를 입력해야 합니다.");
-    }
-
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"abc", "1a", "a1", "1.5", "one"})
     @DisplayName("시도 횟수가 숫자가 아니면 예외가 발생한다")
-    void notNumberTryCount() {
-        assertThatThrownBy(() -> new TryCount("abc"))
+    void notNumberTryCount(String input) {
+        assertThatThrownBy(() -> new TryCount(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("시도 횟수는 숫자여야 합니다.");
     }
 
-    @Test
-    @DisplayName("시도 횟수가 0이면 예외가 발생한다")
-    void invalidZeroTryCount() {
-        assertThatThrownBy(() -> new TryCount("0"))
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "-1", "-5", "-100"})
+    @DisplayName("시도 횟수가 0 이하면 예외가 발생한다")
+    void invalidZeroOrNegativeTryCount(String input) {
+        assertThatThrownBy(() -> new TryCount(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("시도 횟수는 1 이상이어야 합니다.");
+                .hasMessage("시도 횟수는 1 이상이어야 합니다.");
     }
 
-    @Test
-    @DisplayName("시도 횟수가 음수면 예외가 발생한다")
-    void invalidNegativeTryCount() {
-        assertThatThrownBy(() -> new TryCount("-5"))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("시도 횟수는 1 이상이어야 합니다.");
-    }
-
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {" 5", "5 ", "  5  ", "\t5\t"})
     @DisplayName("앞뒤 공백이 포함되어도 정상 파싱된다")
-    void shouldTrimInputAndCreateSuccessfully() {
-        assertThatCode(() -> new TryCount(" 5")).doesNotThrowAnyException();
-        assertThatCode(() -> new TryCount("5 ")).doesNotThrowAnyException();
-        assertThatCode(() -> new TryCount("  5  ")).doesNotThrowAnyException();
+    void shouldTrimInputAndCreateSuccessfully(String input) {
+        assertThatCode(() -> new TryCount(input))
+                .doesNotThrowAnyException();
     }
 
     @Test
