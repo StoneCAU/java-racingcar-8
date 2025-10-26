@@ -2,13 +2,16 @@ package racingcar.parser;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class CarNamesParserTest {
+class CarNamesParserTest {
     @Test
     @DisplayName("쉼표로 구분된 이름을 파싱한다")
     void parseWithComma() {
@@ -17,35 +20,52 @@ public class CarNamesParserTest {
         assertThat(carNames).containsExactly("pobi", "crong", "jun");
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {
+            " pobi , crong , jun ",
+            "  pobi  ,  crong  ,  jun  ",
+            "\tpobi\t,\tcrong\t,\tjun\t"
+    })
     @DisplayName("쉼표로 구분된 이름 중 공백을 제거하고 파싱한다")
-    void parseWithCommaAndSpaces() {
-        List<String> names = CarNamesParser.parse(" pobi , crong , jun ");
+    void parseWithCommaAndSpaces(String input) {
+        List<String> names = CarNamesParser.parse(input);
 
         assertThat(names).containsExactly("pobi", "crong", "jun");
     }
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"pobi", " pobi ", "  pobi  "})
     @DisplayName("하나의 이름만 입력해도 파싱한다")
-    void parseWithSingleName() {
-        List<String> names = CarNamesParser.parse("pobi");
+    void parseWithSingleName(String input) {
+        List<String> names = CarNamesParser.parse(input);
 
         assertThat(names).containsExactly("pobi");
     }
 
-    @Test
-    @DisplayName("빈 문자열 입력 시 예외가 발생한다")
-    void invalidEmptyCarNames() {
-        assertThatThrownBy(() -> CarNamesParser.parse(""))
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"   ", " \t ", "  \n  "})
+    @DisplayName("빈 문자열이나 null이면 예외가 발생한다")
+    void invalidEmptyOrNullCarNames(String input) {
+        assertThatThrownBy(() -> CarNamesParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름을 입력해주세요.");
     }
 
     @Test
-    @DisplayName("null이면 예외가 발생한다")
-    void invalidNullCarNames() {
-        assertThatThrownBy(() -> CarNamesParser.parse(null))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("자동차 이름을 입력해주세요.");
+    @DisplayName("이름이 많아도 정상 파싱된다")
+    void parseWithManyNames() {
+        List<String> names = CarNamesParser.parse("a,b,c,d,e,f,g,h,i,j");
+
+        assertThat(names).hasSize(10)
+                .containsExactly("a", "b", "c", "d", "e", "f", "g", "h", "i", "j");
+    }
+
+    @Test
+    @DisplayName("5자 이름도 정상 파싱된다")
+    void parseWithMaxLengthName() {
+        List<String> names = CarNamesParser.parse("abcde,fghij");
+
+        assertThat(names).containsExactly("abcde", "fghij");
     }
 }
