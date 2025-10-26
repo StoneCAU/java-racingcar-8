@@ -2,9 +2,11 @@ package racingcar.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import racingcar.dto.CarStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class CarTest {
     @Test
@@ -12,8 +14,10 @@ public class CarTest {
     void createCar() {
         Car car = new Car("pobi");
 
-        assertThat(car.getName()).isEqualTo("pobi");
-        assertThat(car.getPosition()).isEqualTo(0);
+        assertAll(
+                () -> assertThat(car.getName()).isEqualTo("pobi"),
+                () -> assertThat(car.getPosition()).isEqualTo(0)
+        );
     }
 
     @Test
@@ -79,9 +83,11 @@ public class CarTest {
         car.move(4);
         car.move(5);
 
-        var status = car.toStatus();
+        CarStatus status = car.toStatus();
 
-        assertThat(status.name()).isEqualTo("pobi");
-        assertThat(status.position()).isEqualTo(2);
+        assertAll(
+                () -> assertThat(status.name()).isEqualTo("pobi"),
+                () -> assertThat(status.position()).isEqualTo(2)
+        );
     }
 }
