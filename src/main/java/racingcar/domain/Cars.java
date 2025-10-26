@@ -5,7 +5,6 @@ import racingcar.dto.CarStatus;
 import java.util.List;
 
 public class Cars {
-
     private static final int MIN_CAR_COUNT = 1;
 
     private final List<Car> cars;
