@@ -1,6 +1,5 @@
 package racingcar.controller;
 
-import racingcar.dto.CarStatus;
 import racingcar.domain.Cars;
 import racingcar.domain.TryCount;
 import racingcar.parser.CarNamesParser;
@@ -45,8 +44,7 @@ public class RacingController {
     private void runRace(Cars cars, TryCount tryCount) {
         while (tryCount.hasCount()) {
             cars.proceedRound();
-            List<CarStatus> statuses = cars.snapshot();
-            outputView.printRoundResult(statuses);
+            outputView.printRoundResult(cars.snapshot());
             tryCount.decrease();
         }
     }
