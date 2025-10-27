@@ -36,7 +36,7 @@ public class RacingController {
     }
 
     private void playGame(Cars cars, TryCount tryCount) {
-        outputView.printResultMessage();
+        outputView.printResultHeader();
         runRace(cars, tryCount);
         printWinners(cars);
     }

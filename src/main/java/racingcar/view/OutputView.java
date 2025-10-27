@@ -11,7 +11,7 @@ public class OutputView {
     private static final String WINNER_ANNOUNCEMENT_FORMAT = "최종 우승자 : %s";
     private static final String WINNER_DELIMITER = ", ";
 
-    public void printResultMessage() {
+    public void printResultHeader() {
         printNewLine();
         System.out.println(RESULT_HEADER_MESSAGE);
     }
